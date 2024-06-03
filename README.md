@@ -1,5 +1,3 @@
-# VehicleSystem
-
 # Overview
 This is a vehicle management project using django and MySQL.
 
