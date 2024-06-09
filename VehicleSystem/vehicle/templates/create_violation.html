@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Violation</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Create Violation</h1>
+
+        <!-- Check if there are any messages -->
+        {% if messages %}
+        <div class="alert-container">
+            <!-- Loop through messages and display them -->
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="record">Record:</label>
+                <select id="record" name="record" class="form-control">
+                    <option value="">Select a Record</option>
+                    <!-- Loop through records and create options -->
+                    {% for record in records %}
+                    <option value="{{ record.id }}" {% if record.id|stringformat:"s" == record_selected|stringformat:"s" %}selected{% endif %}>
+                        {{ record.license_plate }} - {{ record.record_date }} {{ record.record_time }} {{ record.junction }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="violation_type">Violation Type:</label>
+                <select id="violation_type" name="violation_type" class="form-control">
+                    <option value="">Select Violation Type</option>
+                    {% for type in violation_types %}
+                    <option value="{{ type }}" {% if type == violation_type_selected %}selected{% endif %}>{{ type }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="fine">Fine:</label>
+                <input type="number" id="fine" name="fine" class="form-control" step="0.01" value="{{ fine }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function(){
+                $(this).alert('close');
+            });
+        });
+    </script>
+</body>
+</html>

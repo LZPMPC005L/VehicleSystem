@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Vehicle Page</title>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $( function() {
+            $( "#registration_date" ).datepicker({ dateFormat: 'yy-mm-dd' });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>This is the Register Vehicle Page!</h1>
+        <form action="/register_vehicle/" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="license_plate">License Plate:</label>
+                <input type="text" id="license_plate" name="license_plate" class="form-control" value="{{ license_plate|default_if_none:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="vehicle_type">Vehicle Type:</label>
+                <select id="vehicle_type" name="vehicle_type" class="form-control">
+                    <option value="Car" {% if vehicle_type == "Car" %}selected{% endif %}>Car</option>
+                    <option value="Electromobile" {% if vehicle_type == "Electromobile" %}selected{% endif %}>Electromobile</option>
+                    <option value="Motorcycle" {% if vehicle_type == "Motorcycle" %}selected{% endif %}>Motorcycle</option>
+                    <option value="Bus" {% if vehicle_type == "Bus" %}selected{% endif %}>Bus</option>
+                    <option value="Other" {% if vehicle_type == "Other" %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="owner_id">Owner ID:</label>
+                <input type="text" id="owner_id" name="owner_id" class="form-control" value="{{ owner_id|default_if_none:'' }}">
+            </div>
+            <div class="form-group">
+                <label for="registration_date">Registration Date:</label>
+                <input type="text" id="registration_date" name="registration_date" class="form-control" value="{{ registration_date|default_if_none:'' }}">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+        <!-- Check if there are any messages -->
+        {% if messages %}
+        <div class="alert-container mt-3">
+            <!-- Loop through messages and display them -->
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+    <script>
+        $(document).ready(function(){
+            $(".alert-dismissible").fadeTo(2000, 500).slideUp(500, function(){
+                $(this).alert('close');
+            });
+        });
+    </script>
+</body>
+</html>
