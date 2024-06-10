@@ -14,3 +14,6 @@ This is a vehicle management project using django and MySQL.
   3.Recognition and Record http://127.0.0.1/recognition_record/  
   4.Create violation http://127.0.0.1/create_violation/  
   5.Send email to violation vehicle owner  
+  
+# Note  
+This application runs on 127.0.0.1 or port 8000 by default.
