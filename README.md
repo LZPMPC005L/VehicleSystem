@@ -8,7 +8,7 @@ This is a vehicle management project using django and MySQL.
 # Building and Running
 
 # Usage
-  The web application is accessible at http://127.0.0.1:8000.
+  The web application is accessible at http://127.0.0.1:8000.  
   1.Register Owner request to http://127.0.0.1/register_owner/  
   2.Regiter Vehicle http://127.0.0.1/register_vehicle/  
   3.Recognition and Record http://127.0.0.1/recognition_record/  
